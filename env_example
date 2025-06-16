@@ -1,4 +1,12 @@
 # Можно получить тут: t.me/BotFather
 BOT_API_TOKEN=your_bot_api_token
 
+# Telegram admin id
 ADMIN_IDS=123456789,987654321
+
+# Доменное имя вашего сервера
+SERVER_DOMAIN=your_server_domain
+
+# Те же данные что вы использовали для входа в веб панель
+ADMIN_USERNAME=your_username
+ADMIN_PASSWORD=your_password
