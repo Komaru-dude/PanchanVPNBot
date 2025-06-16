@@ -1,2 +1,4 @@
 # Можно получить тут: t.me/BotFather
 BOT_API_TOKEN=your_bot_api_token
+
+ADMIN_IDS=123456789,987654321
