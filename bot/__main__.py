@@ -9,6 +9,7 @@ from bot.handlers.start import start_router
 logging.basicConfig(level=logging.INFO)
 
 token = str(os.getenv("BOT_API_TOKEN"))
+print(token)
 bot = Bot(token)
 dp = Dispatcher()
 
