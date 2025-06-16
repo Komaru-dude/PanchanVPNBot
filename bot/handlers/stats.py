@@ -15,3 +15,5 @@ async def cmd_stats(message: Message, api: Api):
     answer = (
         f"🕹 Версия: {data["version"]}"
     )
+
+    await message.reply(answer)
