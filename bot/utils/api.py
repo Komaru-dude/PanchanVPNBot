@@ -16,7 +16,7 @@ class Api:
         self.bearer_token = await self.get_token()
         
     async def get_token(self):
-        url = f"{self.domain}/oauth/token"
+        url = f"{self.domain}/api/admin/token"
         headers = {
             "Content-Type": "application/x-www-form-urlencoded"
         }
