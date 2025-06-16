@@ -10,6 +10,9 @@ class Api:
         self.domain = os.getenv("SERVER_DOMAIN")
         self.admin_username = os.getenv("ADMIN_USERNAME")
         self.admin_password = os.getenv("ADMIN_PASSWORD")
+        self.bearer_token = None
+
+    def init(self) -> None:
         self.bearer_token = self.get_token()
         
     async def get_token(self):

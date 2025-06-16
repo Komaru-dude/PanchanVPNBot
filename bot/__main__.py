@@ -18,6 +18,7 @@ dp = Dispatcher()
 
 async def main():
     api = Api()
+    api.init()
     dp["api"] = api
     dp.include_routers(start_router, stats_router)
     await dp.start_polling(bot)
