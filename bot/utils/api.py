@@ -41,4 +41,22 @@ class Api:
                 resp_data = await resp.json()
                 return resp_data["access_token"]
             
-    
+    async def get_stats(self):
+        headers = {
+            "Authorization": f"Bearer {self.bearer_token}"
+        }
+        url = f"{self.domain}/api/system"
+
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, headers=headers) as resp:
+                if resp.status != 200:
+                    error_text = await resp.text()
+                    raise aiohttp.ClientResponseError(
+                        request_info=resp.request_info,
+                        history=resp.history,
+                        status=resp.status,
+                        message=f"Error when get server stats: {error_text}",
+                        headers=resp.headers
+                    )
+                return await resp.json()
+
