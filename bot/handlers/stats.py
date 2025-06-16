@@ -13,7 +13,12 @@ async def cmd_stats(message: Message, api: Api):
     data = await api.get_stats()
 
     answer = (
-        f"🕹 Версия: {data["version"]}"
+        f"🕹 Версия: {data["version"]}\n\n"
+        f"🗂 ОЗУ: {data["mem_used"]}/{data["mem_total"]}\n\n"
+        "📈 CPU:\n"
+        f"CPU cores: {data["cpu_cores"]}\n"
+        f"CPU usage: {data["cpu_usage"]}\n\n"
+        f"🟢 Online users: {data["online_users"]}"
     )
 
     await message.reply(answer)
