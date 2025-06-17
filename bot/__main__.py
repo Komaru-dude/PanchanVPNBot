@@ -19,12 +19,12 @@ dp = Dispatcher()
 async def init_profiles(api: Api):
     if not await api.check_user_template_exists("vless_free"):
         logging.info("Бесплатный профиль не существует, создаём")
-        await api.add_user_template(name="vless_free", data_limit="2147483648", inbounds={"vless": "VLESS TCP REALITY"})
+        await api.add_user_template(name="vless_free", data_limit="2147483648", inbounds={"vless": "VLESS_INBOUND"})
     else:
         logging.info("Бесплатный профиль существует")
     if not await api.check_user_template_exists("vless_30"):
         logging.info("Платный 30 дневный профиль не существует, создаём")
-        await api.add_user_template(name="vless_30", expire_duration=2592000, inbounds={"vless": "VLESS TCP REALITY"})
+        await api.add_user_template(name="vless_30", expire_duration=2592000, inbounds={"vless": "VLESS_INBOUND"})
     else:
         logging.info("Платный 30 дневный профиль существует")
 
