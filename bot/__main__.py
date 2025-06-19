@@ -34,7 +34,7 @@ async def main():
     await api.init()
     await init_profiles(api)
     dp["api"] = api
-    dp.include_routers(start_router, stats_router)
+    dp.include_routers(start_router, stats_router, req_router)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
