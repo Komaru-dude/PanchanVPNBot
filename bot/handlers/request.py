@@ -13,7 +13,7 @@ req_router = Router()
 ADMINS = os.getenv('ADMIN_IDS')
 admins = list(map(int, ADMINS.split(',')))
 pending_requests = {} # FIXME: Позже заменить на asyncpg или другую бд, данная реализация не имеет устойчивости к рестартам
-allowed_plans = ("vless_free", "vless_30", "vless_14", "vless_7")
+allowed_plans = ("vless_free", "vless_30", "vless_14", "vless_7") # FIXME: Опять же, лучше сделать без хардкодинга
 
 def make_confirm_kb(user_id: int, plan: str):
     return InlineKeyboardMarkup(inline_keyboard=[
