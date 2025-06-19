@@ -92,15 +92,15 @@ async def process_confirmation(callback: CallbackQuery, bot: Bot, api: Api):
             data_limit_bytes = 2 * 1024 * 1024 * 1024  # 2 Гб
         
         try:
-            base_user_id = str(user_id)
-            current_user_id = base_user_id
+            base_username = str(user_id)
+            current_username = base_username
             suffix = 0
 
             while True:
                 try:
                     data = await api.add_user(
-                        current_user_id,
-                        "active",
+                        username=current_username,
+                        status="active",
                         expire=expire_timestamp,
                         data_limit=data_limit_bytes,
                         data_limit_reset_strategy="no_reset",
@@ -110,7 +110,8 @@ async def process_confirmation(callback: CallbackQuery, bot: Bot, api: Api):
                 except ClientResponseError as e:
                     if e.status == 409:
                         suffix += 1
-                        current_user_id = f"{base_user_id}_{suffix}"
+                        current_username = f"{base_username}_{suffix}"
+                        print(f"Конфликт, пробуем с username = {current_username}")
                     else:
                         raise
 
