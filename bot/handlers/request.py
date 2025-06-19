@@ -48,7 +48,7 @@ async def cmd_request(message: Message, bot: Bot):
 
     await message.answer("Запрос отправлен администраторам на подтверждение.")
 
-@req_router.callback_query(F.data.startwith() == "confirm")
+@req_router.callback_query(F.data.startswith("confirm"))
 async def process_confirmation(callback: CallbackQuery, bot: Bot):
     if callback.from_user.id not in admins:
         await callback.answer("Ты не админ и не можешь это делать.", show_alert=True)
