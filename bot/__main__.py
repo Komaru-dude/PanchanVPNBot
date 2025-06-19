@@ -7,6 +7,7 @@ from aiogram import Bot, Dispatcher
 
 from bot.handlers.start import start_router
 from bot.handlers.stats import stats_router
+from bot.handlers.request import req_router
 from bot.utils.api import Api
 
 logging.basicConfig(level=logging.INFO)

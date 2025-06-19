@@ -7,7 +7,7 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from bot.filters.chat_type import ChatTypeFilter
 from bot.utils.api import Api
 
-free_router = Router()
+req_router = Router()
 ADMINS = os.getenv('ADMIN_IDS')
 admins = list(map(int, ADMINS.split(',')))
 pending_requests = {} # FIXME: Позже заменить на asyncpg или другую бд, данная реализация не имеет устойчивости к рестартам
@@ -26,7 +26,7 @@ def make_confirm_kb(user_id: int, plan: str):
         ]
     ])
 
-@free_router.message(Command("free"), ChatTypeFilter("private"))
+@req_router.message(Command("request"), ChatTypeFilter("private"))
 async def cmd_request(message: Message, bot: Bot):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
@@ -48,7 +48,7 @@ async def cmd_request(message: Message, bot: Bot):
 
     await message.answer("Запрос отправлен администраторам на подтверждение.")
 
-@free_router.callback_query(F.data.startwith() == "confirm")
+@req_router.callback_query(F.data.startwith() == "confirm")
 async def process_confirmation(callback: CallbackQuery, bot: Bot):
     if callback.from_user.id not in admins:
         await callback.answer("Ты не админ и не можешь это делать.", show_alert=True)
