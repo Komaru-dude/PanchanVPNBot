@@ -1,7 +1,7 @@
 import aiohttp
 import os
 
-from aiohttp.web import HTTPUnauthorized
+from aiohttp.web import HTTPUnauthorized, HTTPConflict
 from dotenv import load_dotenv
 from typing import Union
 

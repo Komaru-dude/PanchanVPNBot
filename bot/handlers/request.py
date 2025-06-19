@@ -1,5 +1,6 @@
 import os
 from datetime import datetime, timedelta
+from aiohttp import ClientResponseError
 
 from aiogram import Router, Bot, F
 from aiogram.filters import Command
@@ -91,9 +92,34 @@ async def process_confirmation(callback: CallbackQuery, bot: Bot, api: Api):
             data_limit_bytes = 2 * 1024 * 1024 * 1024  # 2 Гб
         
         try:
-            data = await api.add_user(user_id, "active", expire=expire_timestamp, data_limit=data_limit_bytes, data_limit_reset_strategy="no_reset", note="Telegram покупатель")
+            base_user_id = str(user_id)
+            current_user_id = base_user_id
+            suffix = 0
+
+            while True:
+                try:
+                    data = await api.add_user(
+                        current_user_id,
+                        "active",
+                        expire=expire_timestamp,
+                        data_limit=data_limit_bytes,
+                        data_limit_reset_strategy="no_reset",
+                        note="Telegram покупатель"
+                    )
+                    break
+                except ClientResponseError as e:
+                    if e.status == 409:
+                        suffix += 1
+                        current_user_id = f"{base_user_id}_{suffix}"
+                    else:
+                        raise
+
             del pending_requests[user_id]
-            await bot.send_message(user_id, f"😊 Ваша ссылка готова, гайд по установке смотрите в /install\n\n<code>{data["subscription_url"]}</code>", parse_mode=ParseMode.HTML)
+            await bot.send_message(
+                user_id,
+                f"😊 Ваша ссылка готова, гайд по установке смотрите в /install\n\n<code>{data['subscription_url']}</code>",
+                parse_mode=ParseMode.HTML
+            )
         except Exception as e:
             print(f"Ошибка при добавлении пользователя через API для {user_id}: {e}")
             await callback.answer("Произошла ошибка при добавлении пользователя через API.", show_alert=True)
