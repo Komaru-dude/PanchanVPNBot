@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timedelta
-from aiohttp.web import HTTPConflict
+from aiohttp.web import HTTPUnauthorized
 
 from aiogram import Router, Bot, F
 from aiogram.filters import Command
@@ -107,7 +107,7 @@ async def process_confirmation(callback: CallbackQuery, bot: Bot, api: Api):
                         note="Telegram покупатель"
                     )
                     break
-                except HTTPConflict:
+                except HTTPUnauthorized:
                     suffix += 1
                     current_username = f"{base_username}_{suffix}"
                     print(f"Конфликт, пробуем с username = {current_username}")
