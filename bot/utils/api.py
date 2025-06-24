@@ -194,6 +194,9 @@ class Api:
                         return await response.json()
                     else:
                         error_text = await response.text()
-                        raise HTTPConflict(f"Failed to add user: {response.status} {error_text}")
+                        if response.status == 409:
+                            raise HTTPConflict()
+                        else:
+                            raise Exception(f"Failed to add user: {response.status} {error_text}")
         except HTTPUnauthorized:
             await self.init()
