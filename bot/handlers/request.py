@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timedelta
-from aiohttp.web import HTTPUnauthorized
+from aiohttp.web import HTTPUnauthorized, HTTPConflict
 
 from aiogram import Router, Bot, F
 from aiogram.filters import Command
@@ -108,9 +108,15 @@ async def process_confirmation(callback: CallbackQuery, bot: Bot, api: Api):
                     )
                     break
                 except HTTPUnauthorized:
+                    print("Проблемы с авторизацией, переинициализируем API.")
+                    await api.init()
+                except HTTPConflict:
                     suffix += 1
                     current_username = f"{base_username}_{suffix}"
                     print(f"Конфликт, пробуем с username = {current_username}")
+                except Exception as e:
+                    print(f"Неизвестная ошибка API при добавлении пользователя: {e}")
+                    raise
 
             del pending_requests[user_id]
             await bot.send_message(
