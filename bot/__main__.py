@@ -5,7 +5,7 @@ import asyncio
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 
-from bot.handlers.start import start_router
+from bot.handlers.base import base_router
 from bot.handlers.stats import stats_router
 from bot.handlers.request import req_router
 from bot.utils.api import Api
@@ -34,7 +34,7 @@ async def main():
     await api.init()
     await init_profiles(api)
     dp["api"] = api
-    dp.include_routers(start_router, stats_router, req_router)
+    dp.include_routers(base_router, stats_router, req_router)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
