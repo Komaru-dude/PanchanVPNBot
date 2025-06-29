@@ -14,15 +14,15 @@ async def cmd_start(message: Message):
 async def send_install_instructions(message: Message):
     builder = InlineKeyboardBuilder()
     builder.add(
-        InlineKeyboardButton(text="📱 Android (v2RayTUN)", url="https://play.google.com/store/apps/details?id=com.v2raytun.android"),
-        InlineKeyboardButton(text="🍏 iOS (v2RayTUN)", url="https://apps.apple.com/en/app/v2raytun/id6476628951"),
-        InlineKeyboardButton(text="💻 Windows (v2RayTUN)", url="https://storage.v2raytun.com/v2RayTun_Setup.exe"),
+        InlineKeyboardButton(text="📱 Android (v2RayTun)", url="https://play.google.com/store/apps/details?id=com.v2raytun.android"),
+        InlineKeyboardButton(text="🍏 iOS (v2RayTun)", url="https://apps.apple.com/en/app/v2raytun/id6476628951"),
+        InlineKeyboardButton(text="💻 Windows (v2RayTun)", url="https://storage.v2raytun.com/v2RayTun_Setup.exe"),
     )
     await message.reply(
-        f"**Установка VLESS VPN через v2RayTUN на всех платформах:**\n\n"
-        f"1. Установите v2RayTUN на ваше устройство, выбрав кнопку ниже.\n"
+        f"**Установка VLESS VPN через v2RayTun на всех платформах:**\n\n"
+        f"1. Установите v2RayTun на ваше устройство, выбрав кнопку ниже.\n"
         f"2. Скопируйте вашу уникальную ссылку подписки(которую получили из одобренного реквеста):\n\n"
-        f"3. Откройте v2RayTUN, нажмите `+`, выберите `Импорт из буфера обмена`.\n"
+        f"3. Откройте v2RayTun, нажмите `+`, выберите `Импорт из буфера обмена`.\n"
         f"4. Нажмите подключиться.\n"
         f"5. Наслаждайтесь",
         parse_mode="Markdown",
