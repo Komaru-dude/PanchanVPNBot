@@ -6,8 +6,6 @@ from aiogram import Router, Bot, F
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.enums import ParseMode
-
-from bot.filters.chat_type import ChatTypeFilter
 from bot.utils.api import Api
 
 req_router = Router()
@@ -30,7 +28,7 @@ def make_confirm_kb(user_id: int, plan: str):
         ]
     ])
 
-@req_router.message(Command("request"), ChatTypeFilter("private"))
+@req_router.message(Command("request"))
 async def cmd_request(message: Message, bot: Bot):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
