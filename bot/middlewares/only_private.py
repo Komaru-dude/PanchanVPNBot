@@ -14,3 +14,5 @@ class OnlyPrivate(BaseMiddleware):
             if event.chat.type in ("group", "supergroup", "channel"):
                 return None
             return await handler(event, data)
+        else:
+            return await handler(event, data)
